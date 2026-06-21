@@ -1,217 +1,419 @@
-# Awesome
+<div align="center">
 
-> Веб-интерфейс для плагина [WeaponPaints](https://github.com/Nereziel/cs2-WeaponPaints) — смена скинов, ножей, перчаток, агентов и музыки прямо через браузер.
->
-> Web interface for the [WeaponPaints](https://github.com/Nereziel/cs2-WeaponPaints) plugin — change skins, knives, gloves, agents and music kits directly from the browser.
+# Awesome CS2 Web Panel
 
----
+Modern website and administration panel for Counter-Strike 2 community projects.
 
-## Русский
+[![PHP 8.1+](https://img.shields.io/badge/PHP-8.1%2B-777BB4?logo=php\&logoColor=white)](https://www.php.net/)
+[![CS2](https://img.shields.io/badge/Counter--Strike_2-Web_Panel-F2A900)](https://www.counter-strike.net/cs2)
+[![Support](https://img.shields.io/badge/Support-Discord-5865F2?logo=discord\&logoColor=white)](https://discord.gg/futJpU9par)
 
-### 📺 Демонстрация
-[![Смотреть видео](https://img.shields.io/badge/YouTube-Смотреть%20обзор-red?style=for-the-badge&logo=youtube)](https://www.youtube.com/watch?v=EXaBr2wlKmM)
+[Discord Support](https://discord.gg/futJpU9par) · [YouTube Preview](https://youtu.be/Zqa4a8m-gS4)
 
-### Требования
+[English](#english) · [Русский](#русский)
 
-| Компонент | Версия |
-|-----------|--------|
-| PHP | **7.4** или новее (рекомендуется 8.1+) |
-| MySQL / MariaDB | 5.7+ / 10.3+ |
-| Расширения PHP | `pdo`, `pdo_mysql`, `curl`, `json`, `session` |
-| Веб-сервер | Apache (с `mod_rewrite`) или Nginx |
-
-### Зависимости плагина
-
-> [!IMPORTANT]
-> Сайт работает **только** с плагином **[cs2-WeaponPaints](https://github.com/Nereziel/cs2-WeaponPaints)**.
-> Он создаёт в базе данных таблицы: `wp_player_skins`, `wp_player_knife`, `wp_player_gloves`, `wp_player_agents`, `wp_player_music`.
-> Без этих таблиц сайт не запустится.
-
-### Интеграция с LevelRanks
-
-Сайт поддерживает интеграцию с плагином **[LevelRanks от PiSEX](https://github.com/Pisex/cs2-lvl_ranks/releases)**.  
-При подключении на главной странице отображается статистика игроков (сегодня / неделя / месяц / всего).  
-Интеграция настраивается через Админ-панель → **База данных → LevelRanks**.  
-По умолчанию таблица: `lvl_base`.
-
-### Установка
-
-1. **Скачай** репозиторий и загрузи все файлы папки `php/` на сервер в папку сайта (например `/var/www/html/`).
-
-2. **Настрой веб-сервер:**
-
-   **Apache** — убедись что `mod_rewrite` включён. Файл `.htaccess` уже есть в репозитории.
-
-   **Nginx** — добавь в конфиг блока `server`:
-   ```nginx
-   location / {
-       try_files $uri $uri/ /index.php?$query_string;
-   }
-   location ~ \.php$ {
-       fastcgi_pass unix:/run/php/php8.1-fpm.sock;
-       fastcgi_param SCRIPT_FILENAME $document_root/index.php;
-       include fastcgi_params;
-   }
-   ```
-
-3. **Права на запись** — папка сайта должна быть доступна для записи PHP (нужно для `config.json`):
-   ```bash
-   chown -R www-data:www-data /var/www/html/
-   chmod 755 /var/www/html/
-   ```
-
-4. **Открой браузер** и перейди на адрес сайта — тебя автоматически перенаправит на мастер установки `/install`.
-
-5. **Пройди установку:**
-   - Введи название сайта и свой SteamID64 (администратор)
-   - Введи Steam API ключ ([получить здесь](https://steamcommunity.com/dev/apikey))
-   - Подключи базу данных WeaponPaints (та же БД что использует плагин на сервере CS2)
-   - Опционально: подключи LevelRanks
-
-6. **Готово!** Войди через Steam и управляй скинами.
-
-### Настройка Steam API
-
-Без Steam API ключа авторизация работать **не будет**.
-
-1. Перейди на [steamcommunity.com/dev/apikey](https://steamcommunity.com/dev/apikey)
-2. В поле "Domain" укажи домен сайта (например `mysite.com`)
-3. Скопируй ключ и вставь его в установщик
-
-### Структура проекта
-
-```
-php/
-├── index.php          # Главный роутер
-├── config.json        # Конфиг (создаётся при установке)
-├── .htaccess          # Правила Apache rewrite
-├── src/
-│   ├── api.php        # REST API для скинов
-│   ├── auth.php       # Steam авторизация (OpenID)
-│   ├── db.php         # Подключение к БД
-│   ├── helpers.php    # Вспомогательные функции
-│   ├── install.php    # Мастер установки
-│   └── lang/          # Языковые файлы (en, ru, pt-BR, zh-CN)
-├── views/             # PHP-шаблоны страниц
-└── public/            # Статика (CSS, JS, изображения)
-```
-
-### Поддерживаемые языки
-
-`en` · `ru` · `pt-BR` · `zh-CN`
-
-Язык выбирается автоматически из конфига или через URL-префикс: `/ru/skins`, `/en/skins`
-
-### Link:
-Donate: https://untakebtw.github.io/
-Discord: https://discord.gg/SdjmNnp56N
-
+</div>
 
 ---
 
 ## English
 
-### 📺 Video Preview
-[![Watch Video](https://img.shields.io/badge/YouTube-Watch%20Preview-red?style=for-the-badge&logo=youtube)](https://www.youtube.com/watch?v=EXaBr2wlKmM)
+### About
+
+**Awesome CS2 Web Panel** is a modern PHP 8 web panel for Counter-Strike 2 projects.
+
+It includes a public website, Steam authentication, player profiles, server integrations, skins/loadout pages, shop features and a full administration panel in one responsive interface.
+
+The project was created with the assistance of AI tools.
+
+### Features
+
+* Steam OpenID authentication;
+* administrator access by SteamID64;
+* public CS2 skins/loadout module;
+* weapons, knives, gloves, agents, stickers, keychains and music kits support;
+* home page, player profiles, navigation and footer editor;
+* server list with Source Query integration;
+* leaderboard and optional LevelRanks integration;
+* payments, balance, promo codes and payment history;
+* product shop with periods, server selection, delivery settings and backups;
+* support tickets, reports and punishment pages;
+* multilingual interface;
+* administration panel for website, users, databases, logs and modules;
+* graceful handling of missing optional modules.
+
+### Free and paid modules
+
+The public repository contains the website core and public modules.
+
+Some advanced integrations, private modules or third-party CS2 modules may be commercial, require a separate license, or be distributed separately.
+
+Paid modules are not included in this repository.
+
+A purchased module license grants only the right to use the module. Redistribution, resale, leaking, publishing or sharing paid modules with third parties is strictly prohibited.
+
+For module availability, licensing and installation help, use the Discord support server.
+
+### Compatibility
+
+Most modules are primarily designed and tested with **Pisex** modules:
+
+* Pisex LevelRank;
+* Pisex AdminSystem;
+* Pisex VIP.
+
+Some features may work with other similar CS2 modules or custom databases, but full compatibility is not guaranteed.
+
+If you use non-Pisex modules, additional configuration or code changes may be required. The project owner does not guarantee that every feature will work correctly with unsupported third-party modules.
 
 ### Requirements
 
-| Component | Version |
-|-----------|---------|
-| PHP | **7.4** or newer (8.1+ recommended) |
-| MySQL / MariaDB | 5.7+ / 10.3+ |
-| PHP Extensions | `pdo`, `pdo_mysql`, `curl`, `json`, `session` |
-| Web server | Apache (with `mod_rewrite`) or Nginx |
+| Component       | Requirement                                        |
+| --------------- | -------------------------------------------------- |
+| PHP             | PHP 8.1 or newer                                   |
+| Recommended PHP | PHP 8.2+                                           |
+| Database        | MySQL 5.7+ or MariaDB 10.3+                        |
+| Web server      | Apache 2.4+ with mod_rewrite or Nginx with PHP-FPM |
+| Steam           | Steam Web API key and administrator SteamID64      |
 
-### Plugin Dependency
+Required PHP extensions:
 
-> [!IMPORTANT]
-> This website works **only** with the **[cs2-WeaponPaints](https://github.com/Nereziel/cs2-WeaponPaints)** plugin.
-> The plugin creates the following database tables: `wp_player_skins`, `wp_player_knife`, `wp_player_gloves`, `wp_player_agents`, `wp_player_music`.
-> The site will not work without these tables.
+```text
+pdo
+pdo_mysql
+curl
+mbstring
+openssl
+json
+session
+fileinfo
+```
 
-### LevelRanks Integration
-
-The site supports integration with **[LevelRanks by PiSEX](https://github.com/levelsranks)**.  
-When connected, the home page displays player statistics (today / week / month / total).  
-Configure it in the Admin panel → **Database → LevelRanks**.  
-Default table name: `lvl_base`.
+Depending on enabled integrations, you may also need databases created by CS2 plugins such as WeaponPaints, LevelRanks, VIP, AdminSystem or other server-side modules.
 
 ### Installation
 
-1. **Download** the repository and upload all files from the `php/` folder to your web server directory (e.g. `/var/www/html/`).
+1. Download or clone the repository:
 
-2. **Configure your web server:**
-
-   **Apache** — make sure `mod_rewrite` is enabled. The `.htaccess` file is already included.
-
-   **Nginx** — add the following to your `server` block:
-   ```nginx
-   location / {
-       try_files $uri $uri/ /index.php?$query_string;
-   }
-   location ~ \.php$ {
-       fastcgi_pass unix:/run/php/php8.1-fpm.sock;
-       fastcgi_param SCRIPT_FILENAME $document_root/index.php;
-       include fastcgi_params;
-   }
-   ```
-
-3. **File permissions** — the site directory must be writable by PHP (needed for `config.json`):
-   ```bash
-   chown -R www-data:www-data /var/www/html/
-   chmod 755 /var/www/html/
-   ```
-
-4. **Open your browser** and go to your site's URL — you'll be automatically redirected to the install wizard at `/install`.
-
-5. **Complete the setup:**
-   - Enter your site name and your SteamID64 (admin account)
-   - Enter your Steam API key ([get it here](https://steamcommunity.com/dev/apikey))
-   - Connect the WeaponPaints database (same DB used by the CS2 server plugin)
-   - Optionally: connect LevelRanks
-
-6. **Done!** Log in via Steam and manage your skins.
-
-### Steam API Setup
-
-Steam API key is **required** for login to work.
-
-1. Go to [steamcommunity.com/dev/apikey](https://steamcommunity.com/dev/apikey)
-2. Set the "Domain" field to your site domain (e.g. `mysite.com`)
-3. Copy the key and paste it into the installer
-
-### Project Structure
-
-```
-php/
-├── index.php          # Main router
-├── config.json        # Config file (created during install)
-├── .htaccess          # Apache rewrite rules
-├── src/
-│   ├── api.php        # REST API for skins
-│   ├── auth.php       # Steam authentication (OpenID)
-│   ├── db.php         # Database connection
-│   ├── helpers.php    # Utility functions
-│   ├── install.php    # Setup wizard
-│   └── lang/          # Language files (en, ru, pt-BR, zh-CN)
-├── views/             # PHP page templates
-└── public/            # Static assets (CSS, JS, images)
+```bash
+git clone YOUR_REPOSITORY_URL awesome
+cd awesome
 ```
 
-### Supported Languages
+2. Point your website document root to the project directory.
 
-`en` · `ru` · `pt-BR` · `zh-CN`
+3. Enable URL rewriting.
 
-Language is set from config or via URL prefix: `/ru/skins`, `/en/skins`
+For Apache, enable `mod_rewrite` and allow `.htaccess` overrides:
 
+```apache
+<Directory /var/www/awesome>
+    AllowOverride All
+    Require all granted
+</Directory>
+```
 
-### Link:
+For Nginx, use the security rules from `nginx.conf.example`.
 
-Donate: https://untakebtw.github.io
-Discord: https://discord.gg/SdjmNnp56N
+Minimal routing example:
+
+```nginx
+root /var/www/awesome;
+index index.php;
+
+location / {
+    try_files $uri $uri/ /index.php?$query_string;
+}
+
+location = /index.php {
+    include fastcgi_params;
+    fastcgi_param SCRIPT_FILENAME $document_root/index.php;
+    fastcgi_pass unix:/run/php/php8.2-fpm.sock;
+}
+
+location ~ \.php$ {
+    return 404;
+}
+```
+
+4. Give the web-server user write access:
+
+```bash
+sudo chown -R www-data:www-data /var/www/awesome
+sudo find /var/www/awesome -type d -exec chmod 750 {} \;
+sudo find /var/www/awesome -type f -exec chmod 640 {} \;
+```
+
+5. Open the website in your browser.
+
+If `config.json` does not exist, the installation wizard will start automatically.
+
+6. Complete the setup wizard:
+
+* select website language;
+* enter your public website URL;
+* enter administrator SteamID64;
+* create and enter Steam Web API key;
+* configure website database;
+* connect databases for installed CS2 modules;
+* enable only integrations that are actually installed on your server.
+
+7. Use HTTPS in production.
+
+### Configuration and security
+
+The installer creates `config.json`.
+
+This file contains API keys and database credentials. Do not upload it to public repositories.
+
+Keep these files outside Git:
+
+```text
+config.json
+data/admin/
+data/runtime/
+runtime-error.log
+modules/shop/cache/shop-config.php
+modules/shop/cache/backups/
+database dumps
+local backups
+```
+
+When updating an existing installation, do not overwrite server-side runtime files. Otherwise, you may lose current settings, users, logs or shop backups.
+
+### Optional integrations
+
+Enable integrations only when the required database, CS2 plugin and PHP configuration are available.
+
+Supported or optional integration types may include:
+
+* WeaponPaints / skins database;
+* LevelRanks;
+* VIP;
+* AdminSystem;
+* punishment systems;
+* report systems;
+* payment providers;
+* Discord webhooks.
+
+### License
+
+This project is distributed under a proprietary license.
+
+All rights are reserved unless otherwise stated by the copyright holder.
+
+Paid modules, private modules, source code, assets and proprietary materials may not be copied, redistributed, resold, leaked, published or shared with third parties without permission.
+
+See the `LICENSE` file for details.
+
+### Support
+
+For installation help, bug reports, paid modules and licensing questions, join the Discord support server:
+
+https://discord.gg/futJpU9par
+
+Video preview:
+
+https://youtu.be/Zqa4a8m-gS4
+
 ---
 
-## License
+## Русский
 
-MIT
+### О проекте
+
+**Awesome CS2 Web Panel** — современная веб-панель на PHP 8 для проектов Counter-Strike 2.
+
+Проект объединяет публичный сайт, авторизацию через Steam, профили игроков, серверные интеграции, страницы скинов, магазин и полноценную админ-панель в одном адаптивном интерфейсе.
+
+При создании проекта использовались инструменты искусственного интеллекта.
+
+### Возможности
+
+* авторизация через Steam OpenID;
+* доступ администратора по SteamID64;
+* публичный модуль CS2 Skins / Loadout;
+* поддержка оружия, ножей, перчаток, агентов, наклеек, брелоков и музыкальных наборов;
+* главная страница, профили игроков, редактор навигации и футера;
+* список серверов с интеграцией Source Query;
+* таблица лидеров и опциональная интеграция LevelRanks;
+* платежи, баланс, промокоды и история операций;
+* магазин товаров со сроками, выбором сервера, настройками выдачи и резервными копиями;
+* тикеты поддержки, жалобы и страницы наказаний;
+* мультиязычный интерфейс;
+* админ-панель для сайта, пользователей, баз данных, логов и модулей;
+* безопасная работа без необязательных модулей.
+
+### Бесплатные и платные модули
+
+Публичный репозиторий содержит ядро сайта и публичные модули.
+
+Некоторые расширенные интеграции, приватные модули или сторонние CS2-модули могут быть платными, требовать отдельную лицензию или распространяться отдельно.
+
+Платные модули не входят в этот репозиторий.
+
+Покупка модуля даёт только право пользоваться модулем. Перепродажа, слив, публикация, передача третьим лицам или распространение платных модулей запрещены.
+
+По вопросам доступности модулей, лицензий и установки обращайтесь в Discord-сервер поддержки.
+
+### Совместимость
+
+Большинство модулей в первую очередь рассчитаны и протестированы с модулями **Pisex**:
+
+* Pisex LevelRank;
+* Pisex AdminSystem;
+* Pisex VIP.
+
+Некоторые функции могут работать с другими похожими CS2-модулями или кастомными базами данных, но полная совместимость не гарантируется.
+
+Если вы используете не Pisex-модули, могут потребоваться дополнительные настройки или изменения в коде. Владелец проекта не гарантирует корректную работу всех функций с неподдерживаемыми сторонними модулями.
+
+### Требования
+
+| Компонент         | Требование                                    |
+| ----------------- | --------------------------------------------- |
+| PHP               | PHP 8.1 или новее                             |
+| Рекомендуемый PHP | PHP 8.2+                                      |
+| База данных       | MySQL 5.7+ или MariaDB 10.3+                  |
+| Веб-сервер        | Apache 2.4+ с mod_rewrite или Nginx с PHP-FPM |
+| Steam             | Steam Web API key и SteamID64 администратора  |
+
+Необходимые расширения PHP:
+
+```text
+pdo
+pdo_mysql
+curl
+mbstring
+openssl
+json
+session
+fileinfo
+```
+
+В зависимости от включённых интеграций также могут понадобиться базы данных от CS2-плагинов, например WeaponPaints, LevelRanks, VIP, AdminSystem или других серверных модулей.
+
+### Установка
+
+1. Скачайте или клонируйте репозиторий:
+
+```bash
+git clone YOUR_REPOSITORY_URL awesome
+cd awesome
+```
+
+2. Укажите папку проекта как корень сайта.
+
+3. Включите перенаправление URL.
+
+Для Apache включите `mod_rewrite` и разрешите `.htaccess`:
+
+```apache
+<Directory /var/www/awesome>
+    AllowOverride All
+    Require all granted
+</Directory>
+```
+
+Для Nginx используйте правила безопасности из файла `nginx.conf.example`.
+
+Минимальный пример маршрутизации:
+
+```nginx
+root /var/www/awesome;
+index index.php;
+
+location / {
+    try_files $uri $uri/ /index.php?$query_string;
+}
+
+location = /index.php {
+    include fastcgi_params;
+    fastcgi_param SCRIPT_FILENAME $document_root/index.php;
+    fastcgi_pass unix:/run/php/php8.2-fpm.sock;
+}
+
+location ~ \.php$ {
+    return 404;
+}
+```
+
+4. Выдайте пользователю веб-сервера права на файлы:
+
+```bash
+sudo chown -R www-data:www-data /var/www/awesome
+sudo find /var/www/awesome -type d -exec chmod 750 {} \;
+sudo find /var/www/awesome -type f -exec chmod 640 {} \;
+```
+
+5. Откройте сайт в браузере.
+
+Если `config.json` отсутствует, мастер установки запустится автоматически.
+
+6. Пройдите мастер установки:
+
+* выберите язык сайта;
+* укажите публичный URL сайта;
+* введите SteamID64 администратора;
+* создайте и укажите Steam Web API key;
+* настройте базу данных сайта;
+* подключите базы данных установленных CS2-модулей;
+* включайте только те интеграции, которые действительно установлены на сервере.
+
+7. На рабочем сайте используйте HTTPS.
+
+### Конфигурация и безопасность
+
+Мастер установки создаёт файл `config.json`.
+
+В нём находятся API-ключи и данные для подключения к базам данных. Не загружайте этот файл в публичные репозитории.
+
+Не добавляйте в Git:
+
+```text
+config.json
+data/admin/
+data/runtime/
+runtime-error.log
+modules/shop/cache/shop-config.php
+modules/shop/cache/backups/
+дампы баз данных
+локальные резервные копии
+```
+
+При обновлении уже установленного сайта не перезаписывайте runtime-файлы сервера. Иначе можно потерять текущие настройки, пользователей, логи или резервные копии магазина.
+
+### Необязательные интеграции
+
+Включайте интеграции только тогда, когда на сервере есть нужная база данных, CS2-плагин и PHP-настройки.
+
+Поддерживаемые или необязательные типы интеграций:
+
+* WeaponPaints / база скинов;
+* LevelRanks;
+* VIP;
+* AdminSystem;
+* системы наказаний;
+* системы жалоб;
+* платёжные провайдеры;
+* Discord webhooks.
+
+### Лицензия
+
+Проект распространяется под закрытой проприетарной лицензией.
+
+Все права защищены, если иное не указано правообладателем.
+
+Платные модули, приватные модули, исходный код, ассеты и другие материалы проекта нельзя копировать, перепродавать, сливать, публиковать или передавать третьим лицам без разрешения.
+
+Подробности смотрите в файле `LICENSE`.
+
+### Поддержка
+
+Помощь с установкой, сообщения об ошибках, платные модули и вопросы по лицензии доступны в Discord-сервере поддержки:
+
+https://discord.gg/futJpU9par
+
+Видео с демонстрацией проекта:
+
+https://youtu.be/Zqa4a8m-gS4
